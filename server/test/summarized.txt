@@ -1,0 +1,181 @@
+So we're gonna quickly look at some slides and then we'll jump in and we'll start to look at how express works.
+Many times you'll build out the Api with Express so that it takes requests from the front end and then it serves back data usually in json format, and then you can do what you want with it in the front end to render your your basically your client side views.
+So some other things that can help you out is knowing about Http knowing the status codes you're dealing with request, you're gonna have to send back responses.
+So I'm gonna be using post man, which is an Http clock to make requests to our server.
+And first thing we're gonna do is create a package dot Jason.
+Now we're gonna want to install it express.
+There's a couple things that I'm gonna install throughout this course.
+But right now, I'm just gonna install express.
+So I'm gonna say n m install or i express.
+K. So that that gets added to our package dot Jason, And now I'm gonna create our main entry point file, which I'm gonna call index dot js s.
+So here, we're just gonna start off by creating just a simple express server.
+K? Now what I usually do is create a variable sometimes in a separate config file, but I'm just gonna create it here.
+K? So then down here and listen, we just wanna put in our port variable and we can also add a callback is this second parameter, and I just wanna do a console log because when we run our server, I wanted it to to let us know on the console that it's running.
+So I'm gonna put in some back techs and I'm gonna say server started on port, and then we'll go ahead and put in our port variable.
+So just doing this will actually run a server so I'm gonna save it and I'll go down here and I'll type in node and then the name of the file which is index.
+If we try to go to, like, slash vote, it'll say cannot get slash above because we haven't created any route any endpoints.
+So to create a route, we wanna use app and then the type of request that we wanna handle.
+So we wanna do app dot get, and then the route is gonna be just flash and then the second parameter is gonna be a function.
+However, I'm gonna use an arrow function.
+Now the every route we create is gonna we're gonna have access to this request in response on object we're gonna look into both of these as we move along here.
+So I'm just gonna say hello world.
+So what I'm gonna do is all package called Node, which will constantly watch our server so we don't have to keep reloading.
+So I'll control c to stop and let's do n install and I'm gonna add dash d because I wanna install this as a dev dependency and then node on.
+So now we have node installed now to use it, we're gonna go into our package dot Json, and we need to create a script.
+K? So we're gonna actually create two script.
+And then for a dev, I'm gonna create a a script called Dev, and we're gonna use node index.
+So we'll save this and then let's go down here and run n m run dev.
+And I'm gonna just load an Html file here.
+So I'm gonna say, instead of res send, I'm gonna use send file.
+And I'm gonna use path dot join.
+And I'm just gonna get the current directory with double underscore name, go a folder called public and load a file called index dot Html.
+And I'm just gonna put some boiler plate in here And let's just do my website.
+Now if you want just just a static server that serves just, you know, Html, Css, images, stuff like that, then express actually comes with functionality to to make a certain folder or a static folder.
+K. Uses the method that we use when we wanna to include middle wear, and I'm gonna show you how to write your own middle wear and a little bit.
+But right now, I'm just gonna include express dot static.
+So I'm gonna use path dot join and we'll get the current directory and then point to public.
+Like, let's say a bog dot h Ml. Oops we want that in public.
+It's usually not what you're gonna use express for.
+For most for the most part, you're gonna build either jason Apis so that you can connect from a front end like, React to something like that, which I'm gonna show you how to do or you wanna render templates where you can insert dynamic data, so you can create a dynamic app rather than just a static website.
+I'm gonna leave the static folder there in case we wanna use it, but let's go ahead and move on and let's create a route here.
+So I'm gonna say app dot get.
+And let's do slash api slash members.
+K. So basically, I wanna create kind of just a a a a simple rest Api. We're not gonna be dealing with a database.
+So I'm actually gonna just hard code right here.
+So I'm just gonna create an array of members.
+If you wanna return Jason, we just do res dot Json and we can simply just put in members.
+And then I'm gonna open up postman, make sure this is a get request and let's say http local host poor five thousand slash api slash members.
+K? And I'll just put a comment here that this route gets all members.
+So I'm just gonna copy or cut those out, create a file called members dot js s upper uppercase m because it's basically our model and paste that in and then we just wanna export this.
+So we'll say cons members equals dot slash.
+And let's do dot slash members.
+So as I was saying, gonna create just a simple middle wear function.
+So let's go right here and let's say cons, I'm gonna use an arrow function, but you could use a regular a function.
+I'm gonna call this logger.
+So for now, I'm just gonna say, let's just say, hello.
+We do app dot use, and we're just gonna pass in logger.
+I'm gonna put some back in here, and I'm gonna say request dot protocol.
+And then I'm gonna do colon slash and then we wanna get the host, which is also available in the request object.
+So we'll say request dot...
+So I'm gonna use a a third party package called moment which will it deals with dates deals with date formatting.
+And then after the Url here, I'm just gonna put a colon and then I'm gonna say moment which is a function so we actually have to put this in the syntax.
+So I'm gonna actually put this in a separate file because I wanna save pretty much everything I do so you guys have it as a reference.
+So I'm just gonna create a folder called middle.
+And let's create a file called logger dot js s.
+So I'm gonna just cut it from here because we don't need it in here anymore.
+So we're gonna move on.
+So I'm gonna do say get single member.
+So we'll say app dot ga, we wanna get request and we wanna go slash apis slash members, and then we need to specify an Id. K.
+We wanna get the member by their Id. So we're gonna say colon Id. Which is a Url parameter.
+So I'm just gonna do a quick res dot.
+Now if I go to postman, and I'm just gonna open up another tab and let's look at local host five thousand slash api slash, let's say four.
+I'm gonna use the filter method, which will take an array and just filter things out with filtered it out based on a condition.
+And then let's say, for each one, we'll call it member.
+Gonna use an arrow phone and we'll say we wanna return the member id that's equal to the request dot dot id.
+But what I wanna do is is give a a message saying that there is no member with this Id. Okay?
+I'm gonna use the some method.
+So let's say members dot sum.
+And same thing it's a high order array method we're gonna pass in member, and we're gonna say member dot id equals.
+And then I'm just gonna add an if statement here, so it found then let's just move this up here.
+So I'm just gonna say message member not found.
+So use back and we'll say, let's say no member with the Id. And then we can just put in our request dot dot id.
+We'll try to get members six and we get message, no member with the Id of six in notice we also are giving a four hundred bad request.
+So let's go back in and now I wanna be able to actually create a member.
+Actually, I'm gonna close all these up.
+So I'm gonna create a folder in our root here called row And inside routes, I'm gonna create a folder called Api just because not all of our routes might they might not all be Apis where we're serving Json.
+And then let's create a file called members dot js s.
+K. So now we can say cons router, and we're gonna set that to express router capital r.
+Now in order for this to actually work, we're gonna go into our index js s and let's go down to the bottom here.
+Let's go right below the static folder and we need to do an out dot use and then put the route that we want, which is gonna be slash api slash members.
+So it's gonna be let's see dot slash slash p i slash members.
+So let's move on and let's create a member.
+I'm gonna go down here and say create member.
+So to handle a post request, we're gonna say router dot post instead of route get.
+Now we wanna be able to send data and we when we get that data, it's gonna be in the request object.
+So for now, I'm just gonna do a res send and I wanna send request stop body.
+Let's open up a new tab and make a post request to http t five thousand api slash members.
+So we'll send a name of let's do...
+So gonna go back into index j s and let's say app dot use.
+So we're also gonna do app dot use.
+Now if I go back and we send this again, you'll see that when we do the res dot send for the request body, it gives us the data that we just sent.
+So I'm gonna create a variable here called new member and set this to be an object Now, usually, when you're dealing with Ids and and you're using a database like Mongodb d or are My or post, it usually creates the Id for you.
+I'm gonna actually install something called Eu id, which will generate a random Id for us.
+Now for the Id, I'm just gonna set it to u id dot version four, which is a method.
+So request dot body dot email and then status, I'm just gonna set status to active okay.
+Now we want to add this new member onto our array however, I wanna make sure that the name and the email are sent with the request.
+So we'll say if not new member name or not new member email, then let's return or we can just do res dot status Let's do a four hundred because again, it's a bad request because they should be sending a name and an email and then we'll say Jason and let's do a message and we'll say, please...
+And then down here, let's do a members...
+Actually, one thing I'll mention here is if we don't do an else here, we're gonna get an error that says headers are already sent.
+So let's just do members dot push, okay.
+What I'm gonna do is return the entire array of members that includes the new one.
+So I'll just say res dot Jason and let's pass in members.
+Let's go down here and let's say update And I'm just gonna copy the whole get single member here because it's gonna be similar.
+We wanna check and make sure that there is a member with that Id. K however, it's gonna be a put request.
+When you update something on the server, in most cases, it's gonna be a put request.
+So we're gonna check to see if the member exists if it doesn't, we're gonna do the same member with the Id. However, if it is found, then we want to...
+First of all, let's create a variable called update member and set that to the request dot body.
+K. So we'll get the the email and the name from this request stop box And then we basically wanna loop through the members we have and then check to see if it may matches this Id. If it does, that's the one we wanna update.
+I mean, I didn't have to do all this, I guess, but I'm just trying to give you an idea of how how to create a simple Api. So let's do members for each member.
+We'll put an arrow and then let's do an if statement here and we'll check to see if the member dot id is equal to parse request dot dot id d.
+If it is, that's we wanna update, so we'll just set member dot name to request body dot name, and then we'll set member dot email to request dot body.
+So what we'll do is use turn operator, let's say updated member dot name oops name.
+So updated member name else, then we're just gonna keep the member name whatever that is.
+So just to reiterate, we're gonna make a request to Api members Id. A put request.
+Check if it's found, if it is, we're gonna put the request body in this variable we're gonna loop through our members, check to see if the Id is equal to the id that is passed in here.
+So then we're gonna set the member name depending on if the name was sent with the request.
+So what I'm gonna choose to do here is...
+I'm gonna just do a res dot json.
+And I'm gonna send a message that the member was updated and I'm also gonna send the member itself, k, which this is the same as doing this since these are both the same.
+So let's save that now, let's go back to postman and gonna copy this Url, open up a new tab and make a put request to slash.
+So I'm gonna actually copy the get again.
+And let's say delete number, and this is gonna be a delete request so we wanna do router dot delete k.
+Instead of doing this, we wanna filter out the one with the Id. So we're gonna say not equal to.
+K? We're still gonna use filter, we'll say not equal to.
+So in this res jason, what I'll do is say message member deleted and then...
+Let's put a comma here, and then let's just say member.
+All the members because that's what this is gonna do.
+It's gonna return all the members except the one that was deleted.
+We're gonna go ahead and use express handlebars.
+So let's go ahead and close up our members routes and inside, actually, let's install it first.
+So I'm gonna just stop our server.
+Let's do an n m install express handle handlebars.
+And then in the index js s, I'm gonna go ahead and bring this in.
+So let's save that and let's go into our folder structure and create a folder called views and inside views will create a folder call layouts and here's is where we wanna create our main file.
+So we'll say new file main dot handlebars.
+We'll just say members app app and let's just grab bootstrap so that we can make this look decent.
+Let me just explain for the most part here, you're not really gonna do this where you have a json Api and then you also have server rendered templates.
+You're usually gonna either be building an Api so that you can have react or view or something on the front end and you're just serving Jason or you're gonna have a complete server side app where you use templates.
+Now I just wanna wrap this in a class of container just to keep it in and let's put a class of m t four.
+I'm gonna create a file called Index dot handlebars.
+And for now, I'm just gonna put an h one and we'll just say members.
+Now if I wanna render this, I'll create a route, so let's go let's go right here and say app because we're not in the router anymore.
+So we'll say app dot get because I want this to render on the...
+Now it's gonna show that.
+Well, I shouldn't say that, a lot of times you might have a static folder and you might have a form in one of the Html files that makes a post request whether it's to add to a database or something and then, you know, have, like, app dot posts slash contact or something like that.
+So we're gonna have...
+So let's say, like, title and we'll put...
+Let's just put like member app in then we'll go to index and let's replace this.
+I'm just gonna center that.
+Let's do slash members.
+So now we have access to that array, and I'm gonna pass it into the template here.
+So i'll put a comma, we'll say members, then that's all we need to do because doing this is the same thing.
+So I'm gonna put in h four here.
+We're just gonna say members and then let's do a Ul and now I wanna loop through the members we passed in.
+And then in here, I'm gonna put an L i and let's just do the name, so we can say this dot name...
+Now last thing I wanna to do is create a form so we can actually make a request to our Api to add a member from the form.
+We could create a new a whole new view for this whole new template or whatever, but I'm just gonna put it all in here.
+It's just gonna move everything down.
+Now the action is gonna be slash apis slash members, which we already created.
+And then we're gonna go ahead and add a form group class and then let's do a label.
+So name is gonna be name.
+Now I'm gonna copy the form group because we also want the email.
+So we're gonna change that email Let's change...
+We'll just say add member just give it a bootstrap class of Bt Bt n primary and let's do Bt ten block.
+Now once I send this, it's gonna hit the let's see.
+So it'll create a new member.
+And then down here, it's gonna add the member and then it's gonna return json, which usually you wouldn't do if you're dealing with templates.
+I'm just gonna comment that out.
+Now I'm gonna go and just uncommon the redirect or comment to redirect and uncommon Json just because I want the Api to to work.
+And then I'm just gonna put a link in the the index page to the Api. So to the the slash Api slash members.
+And we'll say slash i slash members, and let's just say visit Api. Alright.
+Obviously, you'll have some kind of database say, use Mongodb d with Mon, you're gonna create a user's model with a login, a register And if you're building a full stack app, like, let's say you have view or React on the front end, then you're probably gonna deal with Jason web tokens.
