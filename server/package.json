@@ -15,8 +15,8 @@
     "deepai": "^1.0.21",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "fluent-ffmpeg": "^2.1.2",
     "morgan": "^1.10.0",
-    "uuid": "^8.3.2",
     "ytdl-core": "^4.11.0"
   },
   "devDependencies": {
