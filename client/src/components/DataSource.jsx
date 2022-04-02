@@ -8,10 +8,17 @@ import { Box, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
+import LoadingButton from '@mui/lab/LoadingButton';
+import axios from 'axios';
 
-export default function DataSource() {
+export default function DataSource({
+  onTextChange,
+  setSummarizedText,
+  setFullText,
+  loading,
+  setLoading,
+}) {
   const [source, setSource] = useState('youtube');
   const [inputUrl, setInputUrl] = useState('');
   const [inputUrlError, setinputUrlError] = useState(false);
@@ -21,7 +28,8 @@ export default function DataSource() {
     display: 'none',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     setinputUrlError(false);
     const isUrl = ['youtube', 'uri'].some((el) => el === source);
@@ -33,10 +41,14 @@ export default function DataSource() {
         setinputUrlError(true);
         return;
       }
-      console.log({
-        source,
-        inputUrl,
-      });
+      axios
+        .get(`http://localhost:4000/uri/?youtubeUrl=${encodeURIComponent(inputUrl)}`)
+        .then((res) => {
+          onTextChange(res.data.textObj.fullText);
+          setFullText(res.data.textObj.fullText);
+          setSummarizedText(res.data.textObj.summarizedText.output);
+        })
+        .finally(() => setLoading(false));
     }
     if (fileUpload)
       console.log({
@@ -44,6 +56,7 @@ export default function DataSource() {
         fileUpload,
       });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <FormControl>
@@ -90,9 +103,9 @@ export default function DataSource() {
             {fileUpload && <p>{fileUpload[0].name}</p>}
           </label>
         )}
-        <Button type="submit" variant="contained" color="primary">
+        <LoadingButton loading={loading} type="submit" variant="contained" color="primary">
           Submit
-        </Button>
+        </LoadingButton>
       </FormControl>
     </form>
   );
