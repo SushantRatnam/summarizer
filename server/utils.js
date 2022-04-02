@@ -32,7 +32,10 @@ export async function convertToText(location, videoId) {
     });
   const text = response.results.channels[0].alternatives[0].transcript;
   const resp = await deepai.callStandardApi('summarization', { text });
-  return resp;
+  return {
+    fullText: text,
+    summarizedText: resp
+  };
 }
 
 const ffmpegSync = (stream, storage_location) => {
@@ -67,7 +70,7 @@ export const converToSummarizedText = async (link) => {
   });
   const response = await ffmpegSync(stream, storage_location);
   if (response.success === true) {
-    const text = await convertToText(storage_location, meta['videoId']);
-    return text;
+    const textObj = await convertToText(storage_location, meta['videoId']);
+    return textObj;
   }
 };
