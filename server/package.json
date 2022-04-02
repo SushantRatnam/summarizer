@@ -18,7 +18,9 @@
     "express": "^4.17.3",
     "fluent-ffmpeg": "^2.1.2",
     "morgan": "^1.10.0",
-    "ytdl-core": "^4.11.0"
+    "mt-downloader": "^2.2.2",
+    "ytdl-core": "^4.11.0",
+    "zeltice-mt-downloader": "^1.1.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
