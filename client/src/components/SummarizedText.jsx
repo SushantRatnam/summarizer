@@ -2,7 +2,6 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 
 export default function SummarizedText({ text, onTextChange }) {
-  console.log('inside text', text);
   return (
     <>
         <TextareaAutosize

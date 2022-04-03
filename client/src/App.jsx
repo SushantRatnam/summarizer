@@ -13,7 +13,6 @@ function App() {
 
   const handleSelectedChange = (event, newValue) => {
     setSelectedTab(newValue);
-    console.log('inside handleSelectedChange',event, newValue)
     if (newValue === 0) {
       setText(fullText);
     }

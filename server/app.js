@@ -23,7 +23,7 @@ app.get('/uri', (req, res) => {
         textObj
       })
     } catch (error) {
-      console.log(error);
+      console.log('API error', error);
     }
   })();
 });
