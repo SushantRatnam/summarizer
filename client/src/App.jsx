@@ -6,17 +6,18 @@ import TextTypeTabs from './components/TextTypeTabs';
 
 function App() {
   const [text, setText] = useState();
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
   const [fullText, setFullText] = useState();
   const [summarizedText, setSummarizedText] = useState();
+  const [keywords, setKeywords] = useState()
 
   const handleSelectedChange = (event, newValue) => {
     setSelectedTab(newValue);
     if (newValue === 0) {
       setText(fullText);
-    }
-    else setText(summarizedText);
+    } else if (newValue === 1) setText(summarizedText);
+    else setText(keywords);
   };
 
   return (
@@ -25,8 +26,10 @@ function App() {
         onTextChange={(text) => setText(text)}
         setFullText={setFullText}
         setSummarizedText={setSummarizedText}
+        setKeywords={setKeywords}
         loading={loading}
         setLoading={setLoading}
+        handleSelectedChange={handleSelectedChange}
       />
       <TextTypeTabs handleSelectedChange={handleSelectedChange} selectedTab={selectedTab} />
       <SummarizedText text={text} onTextChange={(text) => setText(text)} />

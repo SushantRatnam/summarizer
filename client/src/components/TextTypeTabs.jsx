@@ -12,6 +12,7 @@ export default function TextTypeTabs({selectedTab, handleSelectedChange}) {
       <Tabs value={selectedTab} onChange={handleSelectedChange} centered>
         <Tab label="Full Text" />
         <Tab label="Summarized Text" />
+        <Tab label="Keywords" />
       </Tabs>
     </Box>
   );

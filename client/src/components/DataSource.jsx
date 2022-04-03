@@ -18,6 +18,8 @@ export default function DataSource({
   setFullText,
   loading,
   setLoading,
+  setKeywords,
+  handleSelectedChange
 }) {
   const [source, setSource] = useState('youtube');
   const [inputUrl, setInputUrl] = useState('');
@@ -47,6 +49,11 @@ export default function DataSource({
           onTextChange(res.data.textObj.fullText);
           setFullText(res.data.textObj.fullText);
           setSummarizedText(res.data.textObj.summarizedText.output);
+          const keywords = res.data.textObj.taggedText.output
+          keywords.split('\n').join(' ')
+          setKeywords(keywords)
+          //set fullText as selected tab
+          handleSelectedChange(null, 0)
         })
         .finally(() => setLoading(false));
     }
